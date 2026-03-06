@@ -1,0 +1,65 @@
+<div class="dashboard">
+  <header>
+    <h1>Légitársaság útvonaltervező</h1>
+  </header>
+
+  @if (error()) {
+    <p class="error">{{ error() }}</p>
+  }
+
+  @if (loading()) {
+    <p class="loading">Betöltés...</p>
+  }
+
+  @if (!loading() && !error()) {
+    @if (extremes()) {
+      <section class="card card-extremes">
+        <p class="extremes-line">Legkisebb város: {{ extremes()!.smallest?.name }}, {{ extremes()!.smallest?.population | number:'1.0-0':'hu' }} lakos</p>
+        <p class="extremes-line">Legnagyobb város: {{ extremes()!.largest?.name }} {{ extremes()!.largest?.population | number:'1.0-0':'hu' }} lakos</p>
+      </section>
+    }
+
+    <section class="card">
+      <h2>A legrövidebb út:</h2>
+      @for (r of perAirlineRoutes(); track r.airlineId ?? $index) {
+        <div class="route-block">
+          <p class="airline-name">{{ r.airlineName }}:</p>
+          @if (r.message) {
+            <p class="unreachable">{{ r.message }}</p>
+          } @else {
+            @if (r.segments?.length) {
+              @for (s of r.segments; track s.flightId) {
+                <p class="segment-line">{{ s.fromCityName }} -> {{ s.toCityName }}: {{ s.durationFormatted }}</p>
+              }
+            }
+            <p class="separator">------</p>
+            <p class="total-line">Összesen: {{ r.totalDurationFormatted }}</p>
+          }
+        </div>
+      }
+    </section>
+
+    @if (bestRoute() !== null && !bestRoute()!.message) {
+      <section class="card">
+        <h2>Bármely légitársasággal a legrövidebb út:</h2>
+        @if (bestRoute()!.segments?.length) {
+          @for (s of bestRoute()!.segments!; track s.flightId) {
+            <p class="segment-line segment-with-airline">{{ s.airlineName }}: {{ s.fromCityName }} -> {{ s.toCityName }}: {{ s.durationFormatted }}</p>
+          }
+        }
+        <p class="separator">------</p>
+        <p class="total-line">Összesen: {{ bestRoute()!.totalDurationFormatted }}</p>
+      </section>
+    }
+    @if (bestRoute() !== null && bestRoute()!.message) {
+      <section class="card">
+        <h2>Bármely légitársasággal a legrövidebb út:</h2>
+        <p class="unreachable">{{ bestRoute()!.message }}</p>
+      </section>
+    }
+
+    @if (!extremes() && perAirlineRoutes().length === 0 && bestRoute() === null) {
+      <p class="no-data">Nincs adat. Ellenőrizd, hogy a backend fut-e (port 8080).</p>
+    }
+  }
+</div>
