@@ -1,12 +1,13 @@
 package com.airplane.service;
 
 /**
- * Formats duration in minutes to Hungarian: "10 perc", "1 óra 15 perc", "2 óra 10 perc".
+ * Percben megadott időtartam formázása magyar szövegre: "10 perc", "1 óra 15 perc", "2 óra 10 perc".
  */
 public final class DurationFormatter {
 
     private DurationFormatter() {}
 
+    /** Perc érték → magyar szöveg (pl. 75 → "1 óra 15 perc"). */
     public static String formatMinutes(int totalMinutes) {
         if (totalMinutes < 60) {
             return totalMinutes + " perc";

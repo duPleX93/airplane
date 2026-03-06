@@ -12,9 +12,11 @@ import java.util.List;
 @Configuration
 public class CorsConfig {
 
+    /** Engedélyezett origin(ok), vesszővel elválasztva; alapértelmezett: http://localhost:4200 (Angular fejlesztő). */
     @Value("${cors.allowed-origins:http://localhost:4200}")
     private String allowedOrigins;
 
+    /** CORS filter bean: engedi a beállított originokról a GET/POST/PUT/DELETE/OPTIONS és minden fejlécet; credentials engedélyezve. */
     @Bean
     public CorsFilter corsFilter() {
         CorsConfiguration config = new CorsConfiguration();

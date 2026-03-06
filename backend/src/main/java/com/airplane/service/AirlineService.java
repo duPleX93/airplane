@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+/** Légitársaságok listázása; domain → DTO átalakítás. */
 @Service
 public class AirlineService {
 
@@ -16,6 +17,7 @@ public class AirlineService {
         this.data = data;
     }
 
+    /** Visszaadja az összes légitársaságot DTO-ként (id, név). */
     public List<AirlineDto> getAllAirlines() {
         return data.getAirlines().stream()
                 .map(a -> new AirlineDto(a.getId(), a.getName()))

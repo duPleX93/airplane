@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.stream.Stream;
 
+/** Járatok listázása és szűrése indulási/célváros szerint; Flight → FlightDto átalakítás. */
 @Service
 public class FlightService {
 
@@ -17,10 +18,12 @@ public class FlightService {
         this.data = data;
     }
 
+    /** Visszaadja az összes járatot DTO-ként. */
     public List<FlightDto> getAllFlights() {
         return data.getFlights().stream().map(this::toDto).toList();
     }
 
+    /** Járatok szűrése fromCityId és/vagy toCityId szerint; null/üres param = nincs szűrő. */
     public List<FlightDto> search(String fromCityId, String toCityId) {
         Stream<Flight> stream = data.getFlights().stream();
         if (fromCityId != null && !fromCityId.isBlank()) {
@@ -32,6 +35,7 @@ public class FlightService {
         return stream.map(this::toDto).toList();
     }
 
+    /** Flight domain → FlightDto (id, távolság, idő, városok, légitársaság). */
     private FlightDto toDto(Flight f) {
         FlightDto dto = new FlightDto();
         dto.setId(f.getId());

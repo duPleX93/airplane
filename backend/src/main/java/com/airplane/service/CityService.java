@@ -10,6 +10,7 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Stream;
 
+/** Városokkal kapcsolatos lekérdezések (pl. szélsőértékek lakosság szerint). */
 @Service
 public class CityService {
 
@@ -19,6 +20,7 @@ public class CityService {
         this.data = data;
     }
 
+    /** Visszaadja a legkisebb és legnagyobb várost lakosság szerint DTO-ként; üres listánál üres DTO. */
     public CityExtremesDto getExtremes() {
         List<City> cities = data.getCities();
         if (cities.isEmpty()) {
@@ -32,6 +34,7 @@ public class CityService {
         );
     }
 
+    /** City domain → CityDto (id, név, lakosság). */
     private static CityDto toDto(City c) {
         return new CityDto(c.getId(), c.getName(), c.getPopulation());
     }

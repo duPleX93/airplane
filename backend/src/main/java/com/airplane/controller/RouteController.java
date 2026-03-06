@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
+/** REST végpontok az útvonalak lekérdezéséhez (legkisebb → legnagyobb város). */
 @RestController
 @RequestMapping("/api/routes")
 public class RouteController {
@@ -18,11 +19,13 @@ public class RouteController {
         this.routeService = routeService;
     }
 
+    /** Légitársaságonkénti legrövidebb útvonal (GET /api/routes/per-airline). */
     @GetMapping("/per-airline")
     public List<RouteResultDto> perAirline() {
         return routeService.perAirlineRoutes();
     }
 
+    /** Egyetlen legjobb útvonal tetszőleges légitársasággal (GET /api/routes/best). */
     @GetMapping("/best")
     public RouteResultDto best() {
         return routeService.bestRoute();

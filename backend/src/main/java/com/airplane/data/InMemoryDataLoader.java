@@ -21,6 +21,7 @@ public class InMemoryDataLoader {
     private final Map<String, City> cityById = new HashMap<>();
     private final Map<String, Airline> airlineById = new HashMap<>();
 
+    /** Induláskor meghívódik: betölti a városokat, légitársaságokat és járatokat a memóriába. */
     @PostConstruct
     public void loadData() {
         loadCities();
@@ -28,6 +29,7 @@ public class InMemoryDataLoader {
         loadFlights();
     }
 
+    /** Városok betöltése (id, név, lakosság); listába és cityById map-be. */
     private void loadCities() {
         // id, név, lakosság (a legkisebb: Keszthely, a legnagyobb: Budapest)
         var data = List.of(
@@ -49,6 +51,7 @@ public class InMemoryDataLoader {
         }
     }
 
+    /** Légitársaságok betöltése (id, név); listába és airlineById map-be. */
     private void loadAirlines() {
         var data = List.of(
                 airlineRow("W6", "Wizz Air"),
@@ -115,32 +118,37 @@ public class InMemoryDataLoader {
         return f;
     }
 
+    /** Id alapján város lekérése; loadFlights-ban használt. Nincs ilyen id → NPE. */
     private City city(String id) {
         return Objects.requireNonNull(cityById.get(id), "city " + id);
     }
 
+    /** Id alapján légitársaság lekérése; loadFlights-ban használt. Nincs null – hibára dob. */
     private Airline airline(String id) {
         return Objects.requireNonNull(airlineById.get(id), "airline " + id);
     }
 
-    // --- getters (a szolgáltatások ezeket hívják) ---
-
+    /** Városok listája (változtathatatlan); a service réteg ezt hívja. */
     public List<City> getCities() {
         return Collections.unmodifiableList(cities);
     }
 
+    /** Légitársaságok listája (változtathatatlan). */
     public List<Airline> getAirlines() {
         return Collections.unmodifiableList(airlines);
     }
 
+    /** Járatok listája (változtathatatlan). */
     public List<Flight> getFlights() {
         return Collections.unmodifiableList(flights);
     }
 
+    /** Város id alapján; nincs találat → Optional.empty(). */
     public Optional<City> getCityById(String id) {
         return Optional.ofNullable(cityById.get(id));
     }
 
+    /** Légitársaság id alapján; nincs találat → Optional.empty(). */
     public Optional<Airline> getAirlineById(String id) {
         return Optional.ofNullable(airlineById.get(id));
     }

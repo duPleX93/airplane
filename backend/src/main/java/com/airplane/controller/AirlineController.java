@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
+/** REST végpontok a légitársaságok listázásához. */
 @RestController
 @RequestMapping("/api/airlines")
 public class AirlineController {
@@ -18,6 +19,7 @@ public class AirlineController {
         this.airlineService = airlineService;
     }
 
+    /** Visszaadja az összes légitársaságot (GET /api/airlines). */
     @GetMapping
     public List<AirlineDto> getAll() {
         return airlineService.getAllAirlines();

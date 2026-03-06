@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.*;
 
+/** Útvonalak számítása: legkisebb → legnagyobb város; légitársaságonkénti és „legjobb” útvonal; PathResult → DTO. */
 @Service
 public class RouteService {
 
@@ -22,6 +23,7 @@ public class RouteService {
         this.pathfinding = pathfinding;
     }
 
+    /** Minden légitársaságra kiszámolja a legrövidebb útvonalat (km) a legkisebb és legnagyobb város között; üres lista ha nincs város vagy egyeznek. */
     public List<RouteResultDto> perAirlineRoutes() {
         City smallest = data.getCities().stream().min(Comparator.comparingInt(City::getPopulation)).orElse(null);
         City largest = data.getCities().stream().max(Comparator.comparingInt(City::getPopulation)).orElse(null);
@@ -43,6 +45,7 @@ public class RouteService {
         return results;
     }
 
+    /** Egyetlen legjobb útvonal (összes járat használható) a legkisebb és legnagyobb város között; ha nincs útvonal, message = "Nincs útvonal". */
     public RouteResultDto bestRoute() {
         City smallest = data.getCities().stream().min(Comparator.comparingInt(City::getPopulation)).orElse(null);
         City largest = data.getCities().stream().max(Comparator.comparingInt(City::getPopulation)).orElse(null);
@@ -56,6 +59,7 @@ public class RouteService {
         return toRouteResult(path, null, smallest, largest);
     }
 
+    /** PathResult + indulás/cél város (és opcionálisan légitársaság) → RouteResultDto: távolság, idő, átszállások, szegmensek. */
     private RouteResultDto toRouteResult(PathfindingService.PathResult path, Airline airline, City from, City to) {
         RouteResultDto dto = new RouteResultDto();
         dto.setFromCityName(from.getName());
@@ -76,6 +80,7 @@ public class RouteService {
         return dto;
     }
 
+    /** Az útvonal járatlistájából szegmenseket készít: indulás/érkezés idő, várakozás, formázott idők. */
     private List<RouteSegmentDto> buildSegments(List<Flight> pathFlights, int totalElapsedMinutes) {
         List<RouteSegmentDto> segments = new ArrayList<>();
         int currentMinute = 0;
@@ -102,11 +107,13 @@ public class RouteService {
         return segments;
     }
 
+    /** Következő óra eleje (percben, 0-tól); induláskor 0, utána mindig következő óra. */
     private static int nextHourStart(int minute) {
         if (minute == 0) return 0;
         return ((minute / 60) + 1) * 60;
     }
 
+    /** Perc érték (0-tól) → "óra:perc" formátum pl. 125 → "2:05". */
     private static String formatTime(int minute) {
         int h = minute / 60;
         int m = minute % 60;

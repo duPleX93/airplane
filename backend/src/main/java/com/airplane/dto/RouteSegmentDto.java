@@ -12,7 +12,7 @@ public class RouteSegmentDto {
     private int durationMinutes;
     private String departureTimeFormatted;
     private String arrivalTimeFormatted;
-    private Integer waitMinutes; // null for first segment
+    private Integer waitMinutes; // null az első szegmensnél
 
     public String getFlightId() { return flightId; }
     public void setFlightId(String flightId) { this.flightId = flightId; }

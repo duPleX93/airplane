@@ -3,7 +3,7 @@ package com.airplane.dto;
 import java.util.List;
 
 public class RouteResultDto {
-    private String message; // "Nincs útvonal" or null when route exists
+    private String message; // "Nincs útvonal", vagy null ha van útvonal
     private String airlineId;
     private String airlineName;
     private String fromCityName;
