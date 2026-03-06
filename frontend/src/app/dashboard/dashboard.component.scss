@@ -1,0 +1,118 @@
+.dashboard {
+  max-width: 640px;
+  margin: 0 auto;
+  padding: 2rem 1.5rem 3rem;
+  font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+
+  header {
+    margin-bottom: 2rem;
+    padding-bottom: 1.25rem;
+    border-bottom: 1px solid rgba(15, 23, 42, 0.08);
+
+    h1 {
+      margin: 0;
+      font-size: 1.625rem;
+      font-weight: 700;
+      letter-spacing: -0.025em;
+      color: #0f172a;
+    }
+  }
+
+  .error {
+    color: #b91c1c;
+    background: #fef2f2;
+    padding: 0.875rem 1rem;
+    border-radius: 10px;
+    margin-bottom: 1.25rem;
+    font-size: 0.9375rem;
+    border: 1px solid #fecaca;
+  }
+
+  .loading {
+    color: #64748b;
+    padding: 1.5rem;
+    font-size: 0.9375rem;
+    font-weight: 500;
+  }
+
+  .card {
+    background: #fff;
+    border-radius: 14px;
+    padding: 1.5rem 1.625rem;
+    margin-bottom: 1.25rem;
+    box-shadow: 0 1px 3px rgba(15, 23, 42, 0.06);
+    border: 1px solid rgba(15, 23, 42, 0.06);
+
+    h2 {
+      margin: 0 0 1rem 0;
+      font-size: 1rem;
+      font-weight: 600;
+      letter-spacing: -0.01em;
+      color: #0f172a;
+    }
+
+    &.card-extremes .extremes-line {
+      margin: 0.35rem 0;
+      font-size: 0.9375rem;
+      color: #334155;
+    }
+
+    .route-block {
+      margin-top: 1.25rem;
+      padding-top: 1rem;
+      border-top: 1px solid #f1f5f9;
+
+      &:first-child {
+        margin-top: 0;
+        padding-top: 0;
+        border-top: none;
+      }
+
+      .airline-name {
+        margin: 0 0 0.4rem 0;
+        font-weight: 600;
+        font-size: 0.9375rem;
+        color: #0f172a;
+      }
+
+      .segment-line {
+        margin: 0.25rem 0;
+        font-size: 0.9375rem;
+        color: #475569;
+        padding-left: 0.5rem;
+
+        &.segment-with-airline {
+          padding-left: 0;
+        }
+      }
+
+      .separator {
+        margin: 0.5rem 0 0.25rem 0;
+        font-size: 0.875rem;
+        color: #94a3b8;
+        letter-spacing: 0.05em;
+      }
+
+      .total-line {
+        margin: 0.15rem 0 0 0;
+        font-size: 0.9375rem;
+        font-weight: 600;
+        color: #334155;
+      }
+
+      .unreachable {
+        color: #b91c1c;
+        font-size: 0.9375rem;
+        font-style: italic;
+        margin: 0.25rem 0 0 0.5rem;
+      }
+    }
+  }
+
+  .no-data {
+    color: #64748b;
+    font-size: 0.9375rem;
+    padding: 1rem;
+    font-style: italic;
+  }
+}

@@ -1,4 +1,4 @@
-import { Component, OnInit, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit, signal } from '@angular/core';
 import { DecimalPipe } from '@angular/common';
 import { forkJoin } from 'rxjs';
 import { ApiService } from '../api.service';
@@ -10,7 +10,8 @@ import { RouteResult } from '../models/route-result';
   standalone: true,
   imports: [DecimalPipe],
   templateUrl: './dashboard.component.html',
-  styleUrls: ['./dashboard.component.css'],
+  styleUrls: ['./dashboard.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class DashboardComponent implements OnInit {
   readonly extremes = signal<CityExtremes | null>(null);
@@ -38,8 +39,14 @@ export class DashboardComponent implements OnInit {
         this.perAirlineRoutes.set(r);
         this.bestRoute.set(b);
       },
-      error: (err) => {
-        this.error.set(err?.message || err?.error?.message || 'Hiba történt');
+      error: (err: unknown) => {
+        const message =
+          err instanceof Error
+            ? err.message
+            : typeof err === 'object' && err != null && 'message' in (err as object)
+              ? String((err as { message: unknown }).message)
+              : 'Hiba történt';
+        this.error.set(message);
         this.loading.set(false);
       },
       complete: () => this.loading.set(false),
