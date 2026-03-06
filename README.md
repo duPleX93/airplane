@@ -28,6 +28,7 @@ set "MAVEN_CMD=C:\Users\{user}\Downloads\apache-maven-3.9.12\bin\mvn.cmd"
 ### 1. Backend (port 8080)
 
 ```bash
+cd frontend
 npm run start:backend
 ```
 
