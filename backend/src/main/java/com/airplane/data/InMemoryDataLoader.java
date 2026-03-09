@@ -143,16 +143,6 @@ public class InMemoryDataLoader {
         return Collections.unmodifiableList(flights);
     }
 
-    /** Város id alapján; nincs találat → Optional.empty(). */
-    public Optional<City> getCityById(String id) {
-        return Optional.ofNullable(cityById.get(id));
-    }
-
-    /** Légitársaság id alapján; nincs találat → Optional.empty(). */
-    public Optional<Airline> getAirlineById(String id) {
-        return Optional.ofNullable(airlineById.get(id));
-    }
-
     private static class CityRow {
         String id;
         String name;

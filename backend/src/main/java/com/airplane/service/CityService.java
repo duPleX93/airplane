@@ -1,14 +1,12 @@
 package com.airplane.service;
 
 import com.airplane.domain.City;
-import com.airplane.domain.Flight;
 import com.airplane.dto.*;
 import com.airplane.data.InMemoryDataLoader;
 import org.springframework.stereotype.Service;
 
 import java.util.Comparator;
 import java.util.List;
-import java.util.stream.Stream;
 
 /** Városokkal kapcsolatos lekérdezések (pl. szélsőértékek lakosság szerint). */
 @Service

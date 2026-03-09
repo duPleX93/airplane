@@ -1,10 +1,8 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpErrorResponse, HttpParams } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
-import { Airline } from './models/airline';
 import { CityExtremes } from './models/city-extremes';
-import { Flight } from './models/flight';
 import { RouteResult } from './models/route-result';
 
 @Injectable({ providedIn: 'root' })
@@ -12,27 +10,6 @@ export class ApiService {
   private readonly base = 'http://localhost:8080/api';
 
   constructor(private http: HttpClient) {}
-
-  getAirlines(): Observable<Airline[]> {
-    return this.http.get<Airline[]>(`${this.base}/airlines`).pipe(
-      catchError((err) => throwError(() => new Error(this.getErrorMessage(err)))),
-    );
-  }
-
-  getFlights(): Observable<Flight[]> {
-    return this.http.get<Flight[]>(`${this.base}/flights`).pipe(
-      catchError((err) => throwError(() => new Error(this.getErrorMessage(err)))),
-    );
-  }
-
-  searchFlights(from?: string | null, to?: string | null): Observable<Flight[]> {
-    let params = new HttpParams();
-    if (from != null && from !== '') params = params.set('from', from);
-    if (to != null && to !== '') params = params.set('to', to);
-    return this.http.get<Flight[]>(`${this.base}/flights/search`, { params }).pipe(
-      catchError((err) => throwError(() => new Error(this.getErrorMessage(err)))),
-    );
-  }
 
   getCityExtremes(): Observable<CityExtremes> {
     return this.http.get<CityExtremes>(`${this.base}/cities/extremes`).pipe(
