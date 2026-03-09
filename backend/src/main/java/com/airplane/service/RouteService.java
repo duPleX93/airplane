@@ -76,12 +76,12 @@ public class RouteService {
         dto.setTotalDurationFormatted(DurationFormatter.formatMinutes(path.getTotalElapsedMinutes()));
         dto.setTotalElapsedMinutes(path.getTotalElapsedMinutes());
         dto.setTransfers(Math.max(0, path.getFlights().size() - 1));
-        dto.setSegments(buildSegments(path.getFlights(), path.getTotalElapsedMinutes()));
+        dto.setSegments(buildSegments(path.getFlights()));
         return dto;
     }
 
     /** Az útvonal járatlistájából szegmenseket készít: indulás/érkezés idő, várakozás, formázott idők. */
-    private List<RouteSegmentDto> buildSegments(List<Flight> pathFlights, int totalElapsedMinutes) {
+    private List<RouteSegmentDto> buildSegments(List<Flight> pathFlights) {
         List<RouteSegmentDto> segments = new ArrayList<>();
         int currentMinute = 0;
         for (int i = 0; i < pathFlights.size(); i++) {
